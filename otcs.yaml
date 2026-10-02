@@ -1,0 +1,63 @@
+# Open Trust Commons manifest — owner-hosted (PARTICIPATION.md path A).
+# The registry fetches this file from this repository. Facts here are the
+# project's own description of itself; scores are per EVIDENCE-MODEL.md.
+otcs_version: "0.1"
+project:
+  id: kil
+  name: KIL — Kinetic Infrastructure Layer
+  canonical_url: https://github.com/nmcitra/kil
+  status: research
+  first_public_date: "2026-09-18"
+  current_version: pre-release
+  license: Apache-2.0
+  record_state: unregistered   # becomes `registered` through a Commons proposal after the first tag
+  maintainers:
+    - name: Mike Storm (gatekeeper454)
+      representative: true
+declaration:
+  problem: >
+    Verify signed KTP state at the infrastructure boundary and decide per action between authoritative refreshes, so that a permitted action is carried and a denied one produces no target invocation.
+  governed_object: [action, environment]
+  primary_users: [platform engineers, security engineers]
+  threat_or_failure_model: >
+    A stale or spoofed signed state is treated as current; a denied request still reaches the target; local observations are read as permission rather than restriction.
+  decision_outputs: [permit, deny]
+  evidence_outputs: [signed decision records, target invocation markers, evidence joins]
+  known_limitations: >
+    Pre-release. Built first in private; no accessible release yet; no conformance run against an adopted KTP profile; no independent evaluation.
+coordinates:
+  actor: { ai_agent: 1.0, service: 0.9, delegated_subagent: 0.7, human: 0.2 }
+  authority: [mandate, capability, situational_approval]
+  action: [execute, commit, revoke]
+  environment: [system_health, identity_confidence, threat_pressure, reversibility, cumulative_trajectory]
+  time: [before_action, initiation, during_action]
+functions: { interpret: 0.5, constrain: 0.8, decide: 0.9, record: 0.7 }
+ownership:
+  # The owner fills this block in their own commit. A registry entry has to
+  # carry the act of the person whose project it is.
+  owners: []
+  hosted_by: Chris Perkins (nmcitra)   # where the code lives; not an ownership claim
+  verification:
+    status: unverified
+    verified_at: null
+    evidence: []
+    verified_by: null
+freshness:
+  review_interval_days: 365
+  next_owner_confirmation: null
+  confirmation_status: PENDING
+consent:
+  # The owner fills this block in their own commit.
+  publication: null
+  metadata_use: null
+  history_preservation: null
+  mapping_and_analysis: null
+  public_correction_process: null
+  consented_at: null
+evidence: { specification: 1, implementation: 0, independent_validation: 0 }
+offers: [per-action decision at an external-authorization boundary, signed-state verification, evidence joins]
+needs: [accessible tagged release, conformance run against an adopted KTP profile, independent evaluation]
+implements:
+  - project: ktp
+    reference: https://github.com/nmcitra/ktp-rfc
+    pinned_release: null   # the KTP tag the first release builds against
