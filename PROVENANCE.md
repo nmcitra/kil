@@ -85,3 +85,14 @@ The original working-repository incident fixture is not modified.
 Mike Storm is the contributor and original author. Material assistance: OpenAI
 Codex; exact deployed model/version not independently established. This test/
 provenance correction makes no runtime, conformance, release or signing claim.
+
+## Draft runner integration, 2026-10-02
+
+The runner branch now incorporates public main `58b7ef6209e3efa6607ff1342795e38600db7247`
+through a normal merge. The earlier unchanged-33-blobs statement describes the
+runner contribution at its original baseline; the neutral scenario correction
+above records the current three transformed files and 30 unchanged originals.
+All original manifest identities and current destination transformations are
+retained. Runner implementation and draft fixture/spec/schema pins are unchanged.
+Mike Storm is accountable for this integration. Material assistance: OpenAI
+Codex; exact deployed model/version not independently established.
