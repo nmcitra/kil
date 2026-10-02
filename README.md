@@ -41,6 +41,34 @@ fixtures and recorder joins. They do not run Envoy/Kubernetes, demonstrate
 production isolation, or qualify the adopted KTP conformance suite. This import
 creates no release or tag; draft conformance runners are a separate change.
 
+## Draft component report
+
+The request-only harness exercises the unchanged decision engine and separate
+credential-policy baseline. Expectations remain outside the adapter. All 38
+pinned runtime cases are unsupported for complete profile semantics; partial
+mismatches are retained. Supervision, ceilings, independent A/E, profile
+signatures, millisecond validity, binding and continuity are absent. Synthetic
+charge is not A/E; denial is not a signed silent veto. The 26 schema vectors
+are unexecuted metadata, not conformance evidence.
+
+```sh
+.venv/bin/python scripts/run-conformance.py \
+  --fixture tests/fixtures/software-substrate-execution.json \
+  --sha256 2bc1ac15ba1608658dabd392ed60a114dfd6ca9778593a55c11d757a62cf0ebd \
+  --profile-root /path/to/local/ktp-checkout \
+  --report /path/outside/git/new-report.json
+```
+
+The optional profile checkout must be clean at
+`8dda717a51818a5e9ef00e36898ddae6af890230`; it verifies spec/schema pins.
+Without it, those pins are explicitly unverified. Reports require a new
+outside-source path with an existing nonsymlink parent, reject overwrites and
+symlink ancestors, and contain detached expected/actual observations. The CLI
+exits 1 for incomplete/failed qualification, 2 for refused input. Full harness
+tests may pass while the draft qualification deliberately fails. Inputs and
+repeats are bounded; no key generation, network runtime or target effects occur.
+No report is a signature, deployed safety proof or release authorization.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md). Short version: one PR per change, DCO sign-off on every commit, green checks, no product names, no generated readers or transcripts.

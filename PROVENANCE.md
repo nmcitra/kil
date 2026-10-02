@@ -44,3 +44,21 @@ disclosure rule: where AI assistance was material to a contribution, the
 contribution says so, in the commit body or the PR, naming the model and
 version where practical. Disclosure is per contribution; authorship is the
 person's.
+
+## Draft component runner contribution, 2026-10-02
+
+Mike Storm directed and is accountable for this contribution. Material AI
+assistance: OpenAI Codex; exact deployed model/version not independently
+established. Tool assistance does not change human authorship.
+
+New fixture preflight, report harness, limited real-core adapter and tests leave
+all 33 original imported blobs unchanged. Fixture bytes are mechanically copied
+from proposed KTP commit `8dda717a51818a5e9ef00e36898ddae6af890230`, SHA-256
+`2bc1ac15ba1608658dabd392ed60a114dfd6ca9778593a55c11d757a62cf0ebd`.
+Spec/schema SHA-256 pins are respectively
+`4932de21f0fec380edaa9e5ad767e44539866f779aa5469ebd3bd6bb67912427`
+and `32af0e975fe6c37aa26452bc7d7c9d365eb552ed702a1cf763d7e2a88836a8f2`.
+Their verification requires an explicit local pinned checkout. The unchanged
+upstream attribution notice is retained at `tests/fixtures/NOTICE`; host root
+NOTICE and original authorship are untouched. All 38 runtime cases remain
+semantically incomplete; runtime interface design is a separate reviewed gate.
