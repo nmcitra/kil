@@ -15,6 +15,21 @@ def fixture_data():
 
 
 class ScenarioTest(unittest.TestCase):
+    def test_fixture_uses_neutral_synthetic_identifiers(self):
+        raw = fixture_data()
+        self.assertEqual(raw["scenario_id"], "cluster-control-plane-minimal")
+        self.assertEqual(
+            raw["primary_source"],
+            "https://example.invalid/fixtures/scenario-minimal-v1",
+        )
+        event = raw["events"][0]
+        self.assertEqual(event["event_id"], "p1-cluster-api")
+        self.assertEqual(event["state"]["state_id"], "q-p1")
+        self.assertEqual(event["source_ref"], "synthetic-fixture/cluster-api-transition")
+        self.assertEqual(
+            event["summary"], "Worker identity addressed the cluster control plane."
+        )
+
     def test_loads_source_cited_observed_event_and_modeled_context(self):
         scenario = load_scenario(FIXTURE)
         event = scenario.events[0]

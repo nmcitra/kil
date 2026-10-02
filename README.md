@@ -27,6 +27,10 @@ The source-only import preserves 33 original blobs; see `SOURCE-IMPORT.json`
 and `PROVENANCE.md`. The host-authorized static Envoy configuration adapter is
 included, but no lab or product deployment topology is included.
 
+The review correction recorded in `PROVENANCE.md` neutralizes one synthetic
+scenario fixture and its two affected tests. The manifest preserves original
+blob identities and records those three destination transformations separately.
+
 With Python 3.12:
 
 ```sh
