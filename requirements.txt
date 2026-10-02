@@ -2,7 +2,7 @@
 cryptography==50.0.0
 cffi==2.1.1
 pycparser==3.0
-pytest==8.4.2
+pytest==9.0.3
 iniconfig==2.1.0
 packaging==25.0
 pluggy==1.6.0
