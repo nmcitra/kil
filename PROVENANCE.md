@@ -44,3 +44,26 @@ disclosure rule: where AI assistance was material to a contribution, the
 contribution says so, in the commit body or the PR, naming the model and
 version where practical. Disclosure is per contribution; authorship is the
 person's.
+
+## Neutral scenario fixture correction, 2026-10-02
+
+Following the host's source-import review, `tests/fixtures/scenario-minimal-v1.json`
+now uses neutral scenario/event/state identifiers, “cluster control plane” and
+synthetic fixture descriptions. Its original incident link is replaced with
+`https://example.invalid/fixtures/scenario-minimal-v1`: a non-resolving fixture
+identifier required by the unchanged parser's HTTP(S) URI contract, not an
+external source citation. No network lookup or real-incident validation is implied.
+Shape, numeric values, booleans, ordering and dependencies are unchanged.
+The parser's `OBSERVED` label describes its existing source-field mapping; it
+does not turn this synthetic fixture into externally validated evidence.
+
+`tests/test_scenario.py` adds neutral-identifier regression assertions;
+`tests/test_replay.py` follows the renamed event identifier. These three
+files are no longer byte-identical to the original import. The other 30
+manifest-listed blobs remain exact. `SOURCE-IMPORT.json` retains every original
+`sourceBlob` and separately records the three transformed destination blobs.
+The original working-repository incident fixture is not modified.
+
+Mike Storm is the contributor and original author. Material assistance: OpenAI
+Codex; exact deployed model/version not independently established. This test/
+provenance correction makes no runtime, conformance, release or signing claim.

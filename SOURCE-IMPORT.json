@@ -3,6 +3,17 @@
   "sourceCommit": "ad658e58b9ba9734fc1fdb0ae5f86e7cda382e88",
   "date": "2026-10-02",
   "scope": "R1-R9 core and Envoy config adapter; no lab topology; no adopted-conformance claim",
+  "transformations": [
+    {
+      "date": "2026-10-02",
+      "reason": "Host-requested neutral synthetic scenario fixture and regression test; original sourceBlob values retained below",
+      "files": [
+        {"path": "tests/fixtures/scenario-minimal-v1.json", "destinationBlob": "a2ddf5006212057d13189c26c4aa30d68cfbec20"},
+        {"path": "tests/test_scenario.py", "destinationBlob": "39bb3afbba285e48143cda164b90f04895689eae"},
+        {"path": "tests/test_replay.py", "destinationBlob": "ee25026798c51985aa1aa5588760d6bf8d557dbc"}
+      ]
+    }
+  ],
   "files": [
     {
       "path": "src/kil/__init__.py",

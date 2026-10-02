@@ -17,7 +17,7 @@ class ReplayTest(unittest.TestCase):
     def test_all_modes_consume_the_same_event(self):
         report = replay(load_scenario(FIXTURE), PROFILE)
         decision = report.decisions[0]
-        self.assertEqual(decision.event_id, "hf-p1-cluster-api")
+        self.assertEqual(decision.event_id, "p1-cluster-api")
         self.assertTrue(decision.baseline_permit)
         self.assertEqual(decision.signed_state_only.outcome, DecisionOutcome.DENY)
         self.assertEqual(
