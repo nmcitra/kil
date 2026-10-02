@@ -21,6 +21,30 @@ An implementation of the [Kinetic Trust Protocol](https://github.com/nmcitra/ktp
 
 State the KTP release you built against, by tag. Between KTP releases, `main` there may carry material no tag contains yet; if you build against that, pin the exact commit and say so.
 
+## Local source verification
+
+The source-only import preserves 33 original blobs; see `SOURCE-IMPORT.json`
+and `PROVENANCE.md`. The host-authorized static Envoy configuration adapter is
+included, but no lab or product deployment topology is included.
+
+The review correction recorded in `PROVENANCE.md` neutralizes one synthetic
+scenario fixture and its two affected tests. The manifest preserves original
+blob identities and records those three destination transformations separately.
+
+With Python 3.12:
+
+```sh
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m pip install --no-build-isolation -e .
+bash scripts/check-all.sh
+```
+
+Tests cover modeled decisions, signed-state rejection, harmless local HTTP
+fixtures and recorder joins. They do not run Envoy/Kubernetes, demonstrate
+production isolation, or qualify the adopted KTP conformance suite. This import
+creates no release or tag; draft conformance runners are a separate change.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md). Short version: one PR per change, DCO sign-off on every commit, green checks, no product names, no generated readers or transcripts.

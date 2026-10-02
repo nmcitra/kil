@@ -1,0 +1,151 @@
+{
+  "sourceRepository": "https://github.com/gatekeeper454/KIL",
+  "sourceCommit": "ad658e58b9ba9734fc1fdb0ae5f86e7cda382e88",
+  "date": "2026-10-02",
+  "scope": "R1-R9 core and Envoy config adapter; no lab topology; no adopted-conformance claim",
+  "transformations": [
+    {
+      "date": "2026-10-02",
+      "reason": "Host-requested neutral synthetic scenario fixture and regression test; original sourceBlob values retained below",
+      "files": [
+        {"path": "tests/fixtures/scenario-minimal-v1.json", "destinationBlob": "a2ddf5006212057d13189c26c4aa30d68cfbec20"},
+        {"path": "tests/test_scenario.py", "destinationBlob": "39bb3afbba285e48143cda164b90f04895689eae"},
+        {"path": "tests/test_replay.py", "destinationBlob": "ee25026798c51985aa1aa5588760d6bf8d557dbc"}
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "src/kil/__init__.py",
+      "sourceBlob": "df546153f3db5978f7d74bda21b7be367ddaf488"
+    },
+    {
+      "path": "src/kil/canonical.py",
+      "sourceBlob": "cfab80f221439323bb01c8e1bf983d75527bf667"
+    },
+    {
+      "path": "src/kil/decay.py",
+      "sourceBlob": "a4b9c7c6f69f19aabec09106e96168fc7756524c"
+    },
+    {
+      "path": "src/kil/domain.py",
+      "sourceBlob": "4e3fe06dd2cddc4063e44e40ded69703d8b8e77c"
+    },
+    {
+      "path": "src/kil/engine.py",
+      "sourceBlob": "9b9694497d8ab3affcad2168680c375b7a9dcd58"
+    },
+    {
+      "path": "src/kil/evidence.py",
+      "sourceBlob": "33b350f0f291118ba1b1b09ce06a408b78552ddf"
+    },
+    {
+      "path": "src/kil/q_state.py",
+      "sourceBlob": "42df14db1f643196f2e60522a965ced0a531b37d"
+    },
+    {
+      "path": "src/kil/live_authz.py",
+      "sourceBlob": "de8a1794e03589353f8c781c94db26fb05323268"
+    },
+    {
+      "path": "src/kil/ext_authz_http.py",
+      "sourceBlob": "800b09b1bf3f88250cc5e80925b2fdc0f961ca48"
+    },
+    {
+      "path": "src/kil/reference_gateway.py",
+      "sourceBlob": "f5a8fd09f87715c8b3ae15a536cb17e0f3071be0"
+    },
+    {
+      "path": "src/kil/target_http.py",
+      "sourceBlob": "a432adcc4e1014018843fcac602a4937510cc89f"
+    },
+    {
+      "path": "src/kil/v3b_envoy.py",
+      "sourceBlob": "6c8487f8997d7b81a05b5b27e124650face97a62"
+    },
+    {
+      "path": "src/kil/scenario.py",
+      "sourceBlob": "60224e3c3993310c1e11bb71e19342552bf57e78"
+    },
+    {
+      "path": "src/kil/replay.py",
+      "sourceBlob": "9080b95ba2f52fdfd66c12f4225ac3780802402a"
+    },
+    {
+      "path": "src/kil/run_bundle.py",
+      "sourceBlob": "1f5a06a5e02be9eda2e6e2b1d0bac76331c24098"
+    },
+    {
+      "path": "src/kil/py.typed",
+      "sourceBlob": "8b137891791fe96927ad78e64b0aad7bded08bdc"
+    },
+    {
+      "path": "tests/test_decay.py",
+      "sourceBlob": "c98d5a92746aa1c50b727f0fcd0bf32bef162033"
+    },
+    {
+      "path": "tests/test_domain.py",
+      "sourceBlob": "d7353501467f3d7439d4c676bc9ee7974aab5495"
+    },
+    {
+      "path": "tests/test_engine.py",
+      "sourceBlob": "36e587085493f56101bc4e4e024b3bcd832d2c75"
+    },
+    {
+      "path": "tests/test_evidence.py",
+      "sourceBlob": "168249445d354e9d9c3ceaa4233fa241621602ca"
+    },
+    {
+      "path": "tests/test_q_state.py",
+      "sourceBlob": "a99d6c8de247d2f126ce7c9d9f1f6d116ed371cb"
+    },
+    {
+      "path": "tests/test_live_authz.py",
+      "sourceBlob": "660093d7d77c6b935248443c817a1d6b264a8509"
+    },
+    {
+      "path": "tests/test_reference_gateway.py",
+      "sourceBlob": "6e312661419fe00ff29d37ba5960f996feaf3fa0"
+    },
+    {
+      "path": "tests/test_ext_authz_http.py",
+      "sourceBlob": "6e93ac9114b61143c47f0b70b93bd6c1098c4911"
+    },
+    {
+      "path": "tests/test_target_http.py",
+      "sourceBlob": "4a19a460e45049cda61be1f76bbd313456219f69"
+    },
+    {
+      "path": "tests/test_v3b_envoy.py",
+      "sourceBlob": "c9c448d35be851e1b9b766c3dc50708963611900"
+    },
+    {
+      "path": "tests/test_kernel_invariants.py",
+      "sourceBlob": "89cac79ebca957e68710450d14b474694304aaca"
+    },
+    {
+      "path": "tests/test_scenario.py",
+      "sourceBlob": "a5ed54f5ed58e42092458864cdfb640883f8243c"
+    },
+    {
+      "path": "tests/test_replay.py",
+      "sourceBlob": "90a6a5552c37dceb7defc6e3f0a64d71289ece13"
+    },
+    {
+      "path": "tests/test_run_bundle.py",
+      "sourceBlob": "1cfa447f117da7fe5342def30bde7cdc3eeabc53"
+    },
+    {
+      "path": "tests/fixtures/scenario-minimal-v1.json",
+      "sourceBlob": "e117a2d7166cb7f7b724d7f3507a196bcc00b613"
+    },
+    {
+      "path": "schemas/q-state-v0.schema.json",
+      "sourceBlob": "550dfbf3b61097a343fe52f042384547929b8106"
+    },
+    {
+      "path": "schemas/scenario-v1.schema.json",
+      "sourceBlob": "782c7a6ca3e027187cab75d39996ba4c51af7eae"
+    }
+  ]
+}

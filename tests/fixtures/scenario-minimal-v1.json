@@ -1,0 +1,42 @@
+{
+  "schema_version": "kil.scenario.v1",
+  "scenario_id": "cluster-control-plane-minimal",
+  "primary_source": "https://example.invalid/fixtures/scenario-minimal-v1",
+  "events": [
+    {
+      "event_id": "p1-cluster-api",
+      "phase": 1,
+      "timestamp_s": 10,
+      "identity": "dataset-worker",
+      "authority_class": "admin_action",
+      "summary": "Worker identity addressed the cluster control plane.",
+      "source_ref": "synthetic-fixture/cluster-api-transition",
+      "credential_valid": true,
+      "policy_allows_action": true,
+      "control_rationale": "Modeled credential-policy baseline for this synthetic cut point; no real policy evaluation record is asserted.",
+      "state_rationale": "Synthetic Q_i,c state for fixture evaluation; no real KTP enforcement state is asserted.",
+      "depends_on": [],
+      "state": {
+        "state_id": "q-p1",
+        "issued_at_s": 0,
+        "not_before_s": 0,
+        "expires_at_s": 60,
+        "charge": "5",
+        "threshold": "40",
+        "history_count": 0,
+        "minimum_history": 2,
+        "authentic": true,
+        "veto_clear": true,
+        "envelope_allows": true,
+        "decay_rate": "0.05",
+        "maximum_charge": "100"
+      },
+      "modeled_context": {
+        "divergence": "0.95",
+        "coupled_loss": "0",
+        "fresh": true,
+        "rationale": "Synthetic class-history and control-plane novelty signal; no real telemetry is asserted."
+      }
+    }
+  ]
+}
