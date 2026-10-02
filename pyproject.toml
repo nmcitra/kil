@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kinetic-infrastructure-layer"
+version = "0.1.0.dev1"
+description = "Experimental KTP infrastructure-boundary reference core"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = ["cryptography==50.0.0"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+kil = ["py.typed"]

@@ -1,0 +1,42 @@
+{
+  "schema_version": "kil.scenario.v1",
+  "scenario_id": "hf-july-2026-minimal",
+  "primary_source": "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+  "events": [
+    {
+      "event_id": "hf-p1-cluster-api",
+      "phase": 1,
+      "timestamp_s": 10,
+      "identity": "dataset-worker",
+      "authority_class": "admin_action",
+      "summary": "Worker identity addressed the Kubernetes control plane.",
+      "source_ref": "technical timeline: Day-by-day / cluster API transition",
+      "credential_valid": true,
+      "policy_allows_action": true,
+      "control_rationale": "Modeled credential-policy baseline for this cut point; the public timeline does not specify a complete policy evaluation record.",
+      "state_rationale": "Synthetic Q_i,c state for counterfactual evaluation; the public timeline contains no KTP enforcement state.",
+      "depends_on": [],
+      "state": {
+        "state_id": "q-hf-p1",
+        "issued_at_s": 0,
+        "not_before_s": 0,
+        "expires_at_s": 60,
+        "charge": "5",
+        "threshold": "40",
+        "history_count": 0,
+        "minimum_history": 2,
+        "authentic": true,
+        "veto_clear": true,
+        "envelope_allows": true,
+        "decay_rate": "0.05",
+        "maximum_charge": "100"
+      },
+      "modeled_context": {
+        "divergence": "0.95",
+        "coupled_loss": "0",
+        "fresh": true,
+        "rationale": "Synthetic class-history and control-plane novelty signal; raw telemetry was not disclosed."
+      }
+    }
+  ]
+}

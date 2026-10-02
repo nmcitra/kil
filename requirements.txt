@@ -1,0 +1,10 @@
+# Runtime and test/build tools for Python 3.12; versions, not a hashed lock.
+cryptography==50.0.0
+cffi==2.1.1
+pycparser==3.0
+pytest==8.4.2
+iniconfig==2.1.0
+packaging==25.0
+pluggy==1.6.0
+Pygments==2.19.2
+setuptools==80.9.0
