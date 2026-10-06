@@ -23,7 +23,8 @@ from cryptography.hazmat.primitives.serialization import Encoding
 from kil.domain import ActionRequest, DecisionOutcome, LocalEvidence, ReductionProfile
 from kil.live_authz import AuthorizationAdapter, LiveFixture, LiveTrack
 from kil.q_state import QStateClaims, QStateVerificationError, issue_q_state, key_id, verify_q_state
-from lab.g15_earning import read_earned_receipts
+from lab.g15_earning import (completed_status_receipts, read_earned_receipts,
+                             validated_audit_rows)
 
 FIELDS = frozenset(('binding_digest','operation_digest','replay_id','actor_id','tenant_id','operation_id'))
 HEX64 = re.compile(r'[a-f0-9]{64}\Z')
@@ -57,10 +58,10 @@ def parse_request(raw):
 
 class Bridge:
     def __init__(self, ledger, *, divergence=Decimal('0.249'), divergence_mode='constant',
-                 clock_ns=time.time_ns, earning_audit=None):
+                 clock_ns=time.time_ns, earning_audit=None, activity_audits=()):
         if not divergence.is_finite() or not Decimal('0') <= divergence <= Decimal('1'):
             raise ValueError('divergence')
-        if divergence_mode not in ('constant','attempt-rate'):
+        if divergence_mode not in ('constant','attempt-rate','audit-activity'):
             raise ValueError('divergence_mode')
         if not callable(clock_ns):
             raise ValueError('clock_ns')
@@ -70,6 +71,13 @@ class Bridge:
         self.earning_audit = Path(earning_audit) if earning_audit is not None else None
         if self.earning_audit is not None and not self.earning_audit.is_absolute():
             raise ValueError('earning_audit_path')
+        self.activity_audits = tuple(Path(path) for path in activity_audits)
+        if ((divergence_mode == 'audit-activity' and len(self.activity_audits) != 2) or
+            (divergence_mode != 'audit-activity' and self.activity_audits) or
+            len(self.activity_audits) != len(set(self.activity_audits)) or
+            any(not path.is_absolute() or path.parent.resolve() != path.parent
+                for path in self.activity_audits)):
+            raise ValueError('activity_audit_paths')
         fd = os.open(self.ledger, os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW, 0o600)
         os.fsync(fd)
         os.close(fd)
@@ -84,6 +92,7 @@ class Bridge:
         self.clock_ns = clock_ns
         self.last_unique_marker_ns = None
         self.divergence_by_replay = {}
+        self.audit_sequences = {}
         self.held = False
         self.lock = threading.Lock()
         self.rows = 0
@@ -175,6 +184,27 @@ class Bridge:
         rid=value['replay_id']
         binding=(value['actor_id'],value['tenant_id'],value['operation_id'],
                  value['binding_digest'],value['operation_digest'])
+        if self.divergence_mode == 'audit-activity':
+            peer_receipts = set()
+            pending_sequences = {}
+            for path in self.activity_audits:
+                # Every decision rereads the protected journal. A missing,
+                # malformed or rolled-back source cannot yield a permit.
+                rows = validated_audit_rows(path)
+                sequence = tuple(row['Hash'] for row in rows)
+                previous = self.audit_sequences.get(path, ())
+                if sequence[:len(previous)] != previous:
+                    raise ValueError('audit_rollback_or_rewrite')
+                if any(row['UnixNS'] > now_ns for row in rows[1:]):
+                    raise ValueError('audit_future_observation')
+                pending_sequences[path] = sequence
+                receipts = completed_status_receipts(rows, self.decision_rows)
+                for actor, completed in receipts.items():
+                    if actor != value['actor_id']:
+                        peer_receipts.update((receipt.replay_id, receipt.binding_digest)
+                                             for receipt in completed
+                                             if now_ns - 120_000_000_000 <= receipt.unix_ns <= now_ns)
+            self.audit_sequences.update(pending_sequences)
         if rid in self.divergence_by_replay:
             existing,divergence=self.divergence_by_replay[rid]
             if existing!=binding:
@@ -188,6 +218,16 @@ class Bridge:
             value_at_rate=(Decimal('0.9') if last is not None and
                 (now_ns<last or now_ns-last<60_000_000_000) else self.divergence)
             self.last_unique_marker_ns=now_ns
+        elif self.divergence_mode == 'audit-activity' and value['operation_id']=='lab.set_marker':
+            recent = [decision for decision in self.decision_rows
+                      if now_ns - 120_000_000_000 <= decision['recorded_at_unix_ns'] <= now_ns]
+            marker_burst = any(decision['operation_id'] == 'lab.set_marker' and
+                            now_ns - decision['recorded_at_unix_ns'] < 30_000_000_000
+                            for decision in recent)
+            peer_attempt = any(decision['actor_id'] != value['actor_id'] and
+                               decision['operation_id'] == 'lab.read_status'
+                               for decision in recent)
+            value_at_rate = Decimal('0.9') if peer_receipts or peer_attempt or marker_burst else self.divergence
         self.divergence_by_replay[rid]=(binding,value_at_rate)
         return value_at_rate
 
@@ -224,7 +264,8 @@ class Bridge:
                     os.fsync(fd)
                     self.rows += 1
                     self.decision_rows.append(dict(result,operation_id=value['operation_id'],
-                                                   actor_id=value['actor_id']))
+                                                   actor_id=value['actor_id'],
+                                                   recorded_at_unix_ns=now_ns))
                 finally:
                     os.close(fd)
             except OSError:
@@ -322,8 +363,10 @@ def main():
         p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--allowed-client-cert',type=Path,action='append',required=True)
     p.add_argument('--divergence',type=Decimal,default=Decimal('0.249'))
-    p.add_argument('--divergence-mode',choices=('constant','attempt-rate'),default='constant')
+    p.add_argument('--divergence-mode',choices=('constant','attempt-rate','audit-activity'),default='constant')
     p.add_argument('--earning-audit',type=Path)
+    p.add_argument('--activity-audit',type=Path,action='append',default=[],
+                   help='G13 modeled activity: supply each of two protected KAG audit paths')
     args=p.parse_args()
     context=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     context.minimum_version=context.maximum_version=ssl.TLSVersion.TLSv1_3
@@ -335,7 +378,7 @@ def main():
     server.slots=threading.BoundedSemaphore(8)
     server.clients=frozenset(sha256(x509.load_pem_x509_certificate(p.read_bytes()).public_bytes(Encoding.DER)).hexdigest() for p in args.allowed_client_cert)
     server.bridge=Bridge(args.ledger,divergence=args.divergence,divergence_mode=args.divergence_mode,
-                         earning_audit=args.earning_audit)
+                         earning_audit=args.earning_audit,activity_audits=args.activity_audit)
     server.serve_forever()
 
 

@@ -117,3 +117,26 @@ an authorship claim. KTP `v2.1.0` is the comparison baseline. This synthetic
 adopted-profile conformance, production release, or evidence that KTP's
 anti-Goodhart requirements are implemented. Reviewed bounded results and
 their limits live in the Blue Zones collaboration output, not this source repo.
+
+## G13 audit-activity lab follow-up, 2026-10-06
+
+This source-only follow-up to the G15 lab branch copies `lab/campaign_bridge.py`,
+`lab/g15_earning.py` and `tests/lab/test_g13_audit_activity.py` from Mike Storm's
+original KIL working repository at local commit
+`8115fa804625cae878723fabcade7302d141a3c8`. That commit follows the
+G13 preparation commit `09a5bbc`; the G15 baseline files match the public
+PR #9 head byte for byte before this change. The bridge validates two protected
+gateway audit streams and derives a replay-stable synthetic divergence signal
+from recent attributable peer status receipts and marker bursts. A missing,
+rewritten, malformed or future audit stream fails closed. The audit parser also
+accepts the G13 owner-bound pre-dispatch suffix, with a regression test.
+
+Mike directed this bounded synthetic lab test. OpenAI Codex materially
+assisted source development and review; the exact model/version used to write
+this source is not independently established. The separately requested
+`gpt-5.6-sol` alias belongs to the test-agent result, not authorship. No
+certificate, key, kubeconfig, journal, model transcript, generated reader or
+deployment result is imported. The bounded G13 evidence is published in the
+Blue Zones collaboration output. This risk bridge is not a real trajectory
+provider, canonical KTP conformance, source-bound production release or
+whole-architecture safety claim.

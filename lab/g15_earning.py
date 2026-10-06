@@ -26,6 +26,7 @@ class EarnedReceipt:
     replay_id: str
     binding_digest: str
     audit_hash: str
+    unix_ns: int
 
 
 def _unique_pairs(pairs):
@@ -67,7 +68,7 @@ def _audit_snapshot(path: Path):
     return lines
 
 
-def _validated_rows(path: Path):
+def validated_audit_rows(path: Path):
     head = ""
     rows = []
     for index, line in enumerate(_audit_snapshot(path)):
@@ -110,12 +111,8 @@ def _validated_rows(path: Path):
     return rows
 
 
-def read_earned_receipts(audit_path: Path, decisions):
-    """Return per-actor completed status receipts or fail closed.
-
-    ``decisions`` must be the bridge's own fsynced allow rows. KAG's audit
-    writer is independent; a success joins only by exact replay and binding.
-    """
+def completed_status_receipts(rows, decisions):
+    """Join validated KAG rows to the bridge's fsynced allow decisions."""
     by_replay = {}
     for decision in decisions:
         replay = decision["replay_id"]
@@ -126,13 +123,19 @@ def read_earned_receipts(audit_path: Path, decisions):
             raise ValueError("bridge_replay_conflict")
     phases = {}
     earned = {}
-    for row in _validated_rows(Path(audit_path))[1:]:
+    for row in rows[1:]:
         replay = row["ReplayID"]
         if not replay:
             continue
         phase = row["Outcome"]
         key = (replay, row["Binding"])
-        if phase == "pre_dispatch:reserved_rechecked":
+        owner_pre = phase.startswith("pre_dispatch:reserved_rechecked:")
+        if owner_pre:
+            parts = phase.split(":")
+            if (len(parts) != 4 or not HEX32.fullmatch(parts[2]) or
+                    not HEX64.fullmatch(parts[3])):
+                raise ValueError("invalid_owner_pre_dispatch")
+        if phase == "pre_dispatch:reserved_rechecked" or owner_pre:
             if key in phases:
                 raise ValueError("duplicate_pre_dispatch")
             phases[key] = "pre"
@@ -148,5 +151,14 @@ def read_earned_receipts(audit_path: Path, decisions):
             if not decision or decision[0] != row["Binding"] or not decision[3] or decision[2] != "lab.read_status":
                 continue
             actor = decision[1]
-            earned.setdefault(actor, []).append(EarnedReceipt(replay, row["Binding"], row["Hash"]))
+            earned.setdefault(actor, []).append(EarnedReceipt(replay, row["Binding"], row["Hash"], row["UnixNS"]))
     return {actor: tuple(sorted(receipts, key=lambda r: r.replay_id)) for actor, receipts in earned.items()}
+
+
+def read_earned_receipts(audit_path: Path, decisions):
+    """Return per-actor completed status receipts or fail closed.
+
+    ``decisions`` must be the bridge's own fsynced allow rows. KAG's audit
+    writer is independent; a success joins only by exact replay and binding.
+    """
+    return completed_status_receipts(validated_audit_rows(Path(audit_path)), decisions)
