@@ -7,9 +7,6 @@ from pathlib import Path
 import re
 import subprocess
 
-CLI='/Users/mistorm/Documents/AI-Projects/Kinetic Infrastructure Layer - KIL/.tools/bin/kubectl'
-
-
 def run(argv, *, stdin=None, timeout=90):
     p=subprocess.run(argv,input=stdin,capture_output=True,text=True,timeout=timeout)
     if p.returncode:
@@ -32,7 +29,7 @@ def deploy(namespace,manifest,identity,kubeconfig,runroot):
     data=json.loads(manifest.read_text())
     if data['kind']!='List' or not all(x['metadata']['namespace']==namespace for x in data['items']):
         raise ValueError('manifest namespace')
-    base=[CLI,'--kubeconfig',str(kubeconfig)]
+    base=[os.environ.get('KIL_LAB_KUBECTL') or 'kubectl','--kubeconfig',str(kubeconfig)]
     existing=run(base+['get','namespace',namespace,'--ignore-not-found','-o','name']).strip()
     if existing:
         raise ValueError('namespace already exists; no adoption authority')

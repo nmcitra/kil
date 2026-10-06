@@ -13,6 +13,10 @@ only a fresh owned namespace and applies network policy before workloads.
 source. No keys, kubeconfigs, runtime journals, model transcripts or evidence
 bundles belong in this repository.
 
+`deploy_campaign.py` uses `KIL_LAB_KUBECTL` when the operator sets it and
+otherwise runs `kubectl` from `PATH`. The operator supplies the kubeconfig
+path separately; the deployer never embeds a local tool path or credential.
+
 G15 is selected with `build_campaign_manifest.py --g15`. It starts each actor
 at modeled charge 40; `g15_earning.py` credits five per unique successful,
 attributable `lab.read_status` outcome verified from KAG's protected audit
@@ -30,5 +34,5 @@ observation providers, cross-gateway consensus, or production release.
 
 Run `scripts/check-all.sh` before review. Focused lab tests live in
 `tests/lab/` and cover attribution, replay/binding, threshold and manifest
-isolation. The published synthetic G15 result is in
-[`trust-physics-working/ktp-blue-zones`](https://github.com/nmcitra/trust-physics-working/blob/main/ktp-blue-zones/docs/validation/2026-10-05-g15-kind-calico-trust-gated-breakout-results.md).
+isolation. The bounded synthetic G15 and G13 results are published separately
+from this source repository.
