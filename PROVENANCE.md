@@ -45,6 +45,24 @@ contribution says so, in the commit body or the PR, naming the model and
 version where practical. Disclosure is per contribution; authorship is the
 person's.
 
+## Draft component runner contribution, 2026-10-02
+
+Mike Storm directed and is accountable for this contribution. Material AI
+assistance: OpenAI Codex; exact deployed model/version not independently
+established. Tool assistance does not change human authorship.
+
+New fixture preflight, report harness, limited real-core adapter and tests leave
+all 33 original imported blobs unchanged. Fixture bytes are mechanically copied
+from proposed KTP commit `8dda717a51818a5e9ef00e36898ddae6af890230`, SHA-256
+`2bc1ac15ba1608658dabd392ed60a114dfd6ca9778593a55c11d757a62cf0ebd`.
+Spec/schema SHA-256 pins are respectively
+`4932de21f0fec380edaa9e5ad767e44539866f779aa5469ebd3bd6bb67912427`
+and `32af0e975fe6c37aa26452bc7d7c9d365eb552ed702a1cf763d7e2a88836a8f2`.
+Their verification requires an explicit local pinned checkout. The unchanged
+upstream attribution notice is retained at `tests/fixtures/NOTICE`; host root
+NOTICE and original authorship are untouched. All 38 runtime cases remain
+semantically incomplete; runtime interface design is a separate reviewed gate.
+
 ## Neutral scenario fixture correction, 2026-10-02
 
 Following the host's source-import review, `tests/fixtures/scenario-minimal-v1.json`
@@ -67,3 +85,14 @@ The original working-repository incident fixture is not modified.
 Mike Storm is the contributor and original author. Material assistance: OpenAI
 Codex; exact deployed model/version not independently established. This test/
 provenance correction makes no runtime, conformance, release or signing claim.
+
+## Draft runner integration, 2026-10-02
+
+The runner branch now incorporates public main `58b7ef6209e3efa6607ff1342795e38600db7247`
+through a normal merge. The earlier unchanged-33-blobs statement describes the
+runner contribution at its original baseline; the neutral scenario correction
+above records the current three transformed files and 30 unchanged originals.
+All original manifest identities and current destination transformations are
+retained. Runner implementation and draft fixture/spec/schema pins are unchanged.
+Mike Storm is accountable for this integration. Material assistance: OpenAI
+Codex; exact deployed model/version not independently established.
