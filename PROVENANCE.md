@@ -96,3 +96,47 @@ All original manifest identities and current destination transformations are
 retained. Runner implementation and draft fixture/spec/schema pins are unchanged.
 Mike Storm is accountable for this integration. Material assistance: OpenAI
 Codex; exact deployed model/version not independently established.
+
+## Experimental Kind/Calico campaign lab and G15 source, 2026-10-05
+
+This separate source-only contribution brings the synthetic campaign lab from
+Mike Storm's original KIL working repository, commits `2470c38`, `74dc40e`,
+`3b4a3b4`, `1d1270b`, `c279c6d`, and `1fffa84`, onto the shared KIL source tree.
+It adds only `lab/` implementation and `tests/lab/` tests. The G15 extension
+derives an experimental charge from KAG's protected success audit and binds its
+signed state to the earned-evidence digest and exact request. No certificate,
+key, kubeconfig, journal, model transcript, evidence bundle, generated reader,
+cluster state, or deployment result is imported.
+
+Mike directed the bounded lab test and is accountable for this contribution.
+OpenAI Codex materially assisted source development and review; the exact
+model version used for source generation is not independently established.
+The separate test agent requested `gpt-5.6-sol`, which is result evidence, not
+an authorship claim. KTP `v2.1.0` is the comparison baseline. This synthetic
+`kil.q-state.v0` lab bridge is not a canonical earned-standing provider,
+adopted-profile conformance, production release, or evidence that KTP's
+anti-Goodhart requirements are implemented. Reviewed bounded results and
+their limits live in the Blue Zones collaboration output, not this source repo.
+
+## G13 audit-activity lab follow-up, 2026-10-06
+
+This source-only follow-up to the G15 lab branch copies `lab/campaign_bridge.py`,
+`lab/g15_earning.py` and `tests/lab/test_g13_audit_activity.py` from Mike Storm's
+original KIL working repository at local commit
+`8115fa804625cae878723fabcade7302d141a3c8`. That commit follows the
+G13 preparation commit `09a5bbc`; the G15 baseline files match the public
+PR #9 head byte for byte before this change. The bridge validates two protected
+gateway audit streams and derives a replay-stable synthetic divergence signal
+from recent attributable peer status receipts and marker bursts. A missing,
+rewritten, malformed or future audit stream fails closed. The audit parser also
+accepts the G13 owner-bound pre-dispatch suffix, with a regression test.
+
+Mike directed this bounded synthetic lab test. OpenAI Codex materially
+assisted source development and review; the exact model/version used to write
+this source is not independently established. The separately requested
+`gpt-5.6-sol` alias belongs to the test-agent result, not authorship. No
+certificate, key, kubeconfig, journal, model transcript, generated reader or
+deployment result is imported. The bounded G13 evidence is published in the
+Blue Zones collaboration output. This risk bridge is not a real trajectory
+provider, canonical KTP conformance, source-bound production release or
+whole-architecture safety claim.
