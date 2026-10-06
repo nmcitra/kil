@@ -96,3 +96,24 @@ All original manifest identities and current destination transformations are
 retained. Runner implementation and draft fixture/spec/schema pins are unchanged.
 Mike Storm is accountable for this integration. Material assistance: OpenAI
 Codex; exact deployed model/version not independently established.
+
+## Experimental Kind/Calico campaign lab and G15 source, 2026-10-05
+
+This separate source-only contribution brings the synthetic campaign lab from
+Mike Storm's original KIL working repository, commits `2470c38`, `74dc40e`,
+`3b4a3b4`, `1d1270b`, `c279c6d`, and `1fffa84`, onto the shared KIL source tree.
+It adds only `lab/` implementation and `tests/lab/` tests. The G15 extension
+derives an experimental charge from KAG's protected success audit and binds its
+signed state to the earned-evidence digest and exact request. No certificate,
+key, kubeconfig, journal, model transcript, evidence bundle, generated reader,
+cluster state, or deployment result is imported.
+
+Mike directed the bounded lab test and is accountable for this contribution.
+OpenAI Codex materially assisted source development and review; the exact
+model version used for source generation is not independently established.
+The separate test agent requested `gpt-5.6-sol`, which is result evidence, not
+an authorship claim. KTP `v2.1.0` is the comparison baseline. This synthetic
+`kil.q-state.v0` lab bridge is not a canonical earned-standing provider,
+adopted-profile conformance, production release, or evidence that KTP's
+anti-Goodhart requirements are implemented. Reviewed bounded results and
+their limits live in the Blue Zones collaboration output, not this source repo.
